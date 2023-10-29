@@ -49,12 +49,9 @@ export class MessagesWebsocketGateway {
     eventName: string,
   ): Observable<any> {
     return new Observable((observer) => {
-      const randomListenerName = randomUUID();
-      const dynamicListener = {
-        [randomListenerName]: (message: PublishableEventInterface) => {
-          observer.next(message);
-        },
-      }[randomListenerName];
+     const dynamicListener = (message: PublishableEventInterface) => {
+        observer.next(message);
+      };
 
       eventSubscriber.on(eventName, dynamicListener);
 
